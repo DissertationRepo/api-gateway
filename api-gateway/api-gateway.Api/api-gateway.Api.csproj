@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.ReverseProxy" Version="1.0.0-preview.9.21116.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\CandidateService\" />
+  </ItemGroup>
+
 </Project>

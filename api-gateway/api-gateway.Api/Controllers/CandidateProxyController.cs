@@ -25,23 +25,21 @@ namespace api_gateway.Api.Controllers
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(baseAddress);
 
-            //if (Request.Headers.TryGetValue("Authorization", out var authHeaderValues))
-            //{
-            //    var authHeader = authHeaderValues.ToString();
-            //    if (!string.IsNullOrWhiteSpace(authHeader))
-            //    {
-            //        try
-            //        {
-            //            client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
-            //        }
-            //        catch (FormatException)
-            //        {
-            //            client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", authHeader);
-            //        }
-            //    }
-            //}
-
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJoZXlAZW1haWwuY29tIiwianRpIjoiNmEzMjg5NTQtZTQ1OC00Nzk3LWFhN2YtNTZmYzA5MTg5NjdmIiwiaWF0IjoxNzc2OTYxMzY2LCJuYmYiOjE3NzY5NjEzNjYsImV4cCI6MTc3Njk2NDk2NiwiaXNzIjoiSWRlbnRpdHlTZXJ2aWNlIiwiYXVkIjoiSWRlbnRpdHlTZXJ2aWNlQ2xpZW50cyJ9.D57X-k4RzzNLCOBxMsdkzIwYwrgiUw2I2_rQx6Sr76c");
+            if (Request.Headers.TryGetValue("Authorization", out var authHeaderValues))
+            {
+                var authHeader = authHeaderValues.ToString();
+                if (!string.IsNullOrWhiteSpace(authHeader))
+                {
+                    try
+                    {
+                        client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
+                    }
+                    catch (FormatException)
+                    {
+                        client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", authHeader);
+                    }
+                }
+            }
 
             var response = await client.GetAsync($"Candidate/candidate/{candidateId}");
             var content = await response.Content.ReadAsStringAsync();
